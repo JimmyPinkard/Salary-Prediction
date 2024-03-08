@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  client:
+    build: ./client/
+    restart: always
+    volumes:
+      - "/home/jimmy/Projects/SalaryPrediction/client:/client"
+    ports:
+      - "3000:3000"
+  backend:
+    build: .
+    restart: always
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      maria_db:
+        condition: service_healthy
+    volumes:
+      - "/home/jimmy/Projects/SalaryPrediction/:/app"
+    links:
+      - maria_db:app_db
+  maria_db:
+    image: "mariadb"
+    restart: unless-stopped
+    env_file:
+      - ./env/maria.env
+    healthcheck:
+      test: ["CMD", "echo", "Hello"]
+      start_period: 5s
+      timeout: 5s
+      retries: 1
