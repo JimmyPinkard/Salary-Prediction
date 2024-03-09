@@ -1,7 +1,11 @@
 package com.jimmy.salaryprediction.service;
 
-import org.jvnet.hk2.annotations.Service;
+import com.jimmy.salaryprediction.model.Candidate;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface CandidateService {
+    List<Candidate> getAllCandidates();
 }

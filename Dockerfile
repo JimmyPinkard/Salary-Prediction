@@ -1,6 +1,4 @@
-FROM maven:3.9.6-amazoncorretto-17-debian
-
+FROM amazoncorretto:17
 WORKDIR "/app"
-#COPY . .
-#RUN ["mvn", "-U", "install", "-Dspring.profiles.active=docker"]
-ENTRYPOINT ["mvn", "spring-boot:run", "-Dspring.profiles.active=docker"]
+COPY target/salary-prediction-0.0.1-SNAPSHOT.jar ./app.jar
+ENTRYPOINT ["java", "-Dspring.profiles.active=docker", "-jar", "./app.jar"]

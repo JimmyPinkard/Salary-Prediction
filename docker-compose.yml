@@ -17,17 +17,16 @@ services:
     depends_on:
       maria_db:
         condition: service_healthy
-    volumes:
-      - "/home/jimmy/Projects/SalaryPrediction/:/app"
-    links:
-      - maria_db:app_db
   maria_db:
-    image: "mariadb"
-    restart: unless-stopped
+    build: db-data
+    restart: no
     env_file:
       - ./env/maria.env
+    volumes:
+      - ./data-volume:/var/lib/mysql/salary_prediction
+      - ./db-data/Candidate.csv:/var/lib/mysql/salary_prediction/Candidate.csv
+    ports:
+      - "3306:3306"
     healthcheck:
       test: ["CMD", "echo", "Hello"]
-      start_period: 5s
-      timeout: 5s
       retries: 1
