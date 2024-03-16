@@ -25,7 +25,6 @@ public class ViewController {
 
     @PostMapping("/api/candidates/all")
     public ResponseEntity<List<Candidate>> listCandidates() {
-        System.out.println("\nHi from Spring!\n");
         return ResponseEntity.ok(candidateService.getAllCandidates());
     }
 }

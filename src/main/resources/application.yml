@@ -8,3 +8,13 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#HTTPS
+server:
+  port: 8443
+  ssl:
+    key-store: ${KEYSTORE}
+    key-store-password: ${KEYSTORE_PASSWORD}
+    key-store-type: ${KEYSTORE_KEY_TYPE}
+    key-alias: ${KEYSTORE_KEY_ALIAS}
+    key-password: ${KEYSTORE_KEY_PASSWORD}
+    enabled: true

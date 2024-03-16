@@ -1,11 +1,10 @@
 class Util{
     async request(endpoint:string, method:string, body:any) {
-        return fetch(`http://localhost:8080${endpoint}`, {
+        return fetch(`https://localhost:8443${endpoint}`, {
             method: `${method}`,
             mode: "cors",
             headers: {
-                "content-type": "application/json;charset=UTF-8",
-                "Access-Control-Allow-Origin": "http://localhost:8080"
+                "content-type": "application/json;charset=UTF-8"
             },
             body: body
         })
