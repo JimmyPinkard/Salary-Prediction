@@ -33,6 +33,6 @@ build/
 .vscode/
 
 ### docker ###
-data-volume/
-./env/
+./data-volume/*
+!./data-volume/Candidate.csv
 ./env/*
