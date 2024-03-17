@@ -35,12 +35,6 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>org.tribuo</groupId>
-			<artifactId>tribuo-all</artifactId>
-			<version>4.3.1</version>
-			<type>pom</type>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
