@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 @AllArgsConstructor
-@CrossOrigin(origins = {"http://localhost:3000", "http://client:3000/"})
+@CrossOrigin(origins = {"https://localhost:3000", "https://client:3000/"})
 public class ViewController {
 
     private CandidateService candidateService;
