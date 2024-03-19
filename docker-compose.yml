@@ -17,6 +17,12 @@ services:
     depends_on:
       maria_db:
         condition: service_healthy
+  ml:
+    build: ./ML/
+    ports:
+      - "9443:9443"
+    env_file:
+      - ./env/ml.env
   maria_db:
     build: db-data
     restart: no
