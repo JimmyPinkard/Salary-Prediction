@@ -1,7 +1,10 @@
 package com.jimmy.salaryprediction.controller;
 
 import com.jimmy.salaryprediction.controller.request.CreateUserRequest;
+import com.jimmy.salaryprediction.controller.request.LoginRequest;
 import com.jimmy.salaryprediction.controller.response.CreateUserResponse;
+import com.jimmy.salaryprediction.controller.response.LoginResponse;
+import com.jimmy.salaryprediction.exceptions.ApiError;
 import com.jimmy.salaryprediction.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +19,16 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<CreateUserResponse> createUser(final CreateUserRequest createUserRequest) {
+    public ResponseEntity<CreateUserResponse> createUser(final CreateUserRequest createUserRequest) throws Exception {
         CreateUserResponse createUserResponse = new CreateUserResponse();
-        try {
-            createUserResponse.fromUser(userService.createUser(createUserRequest));
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
+        createUserResponse.fromUser(userService.createUser(createUserRequest));
         return ResponseEntity.ok(createUserResponse);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(final LoginRequest loginRequest) throws Exception {
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.fromUser(userService.login(loginRequest));
+        return ResponseEntity.ok(loginResponse);
     }
 }

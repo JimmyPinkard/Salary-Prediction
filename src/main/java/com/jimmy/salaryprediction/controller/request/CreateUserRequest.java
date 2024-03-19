@@ -1,6 +1,5 @@
 package com.jimmy.salaryprediction.controller.request;
 
-import com.jimmy.salaryprediction.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,5 +12,5 @@ import java.util.Set;
 public class CreateUserRequest {
     private String email;
     private String password;
-    private Set<Role> roles;
+    private Set<String> roles;
 }
