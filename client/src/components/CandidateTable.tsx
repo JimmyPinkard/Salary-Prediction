@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { request } from '../util';
+import Header from "./layout/Header";
+import './../App.css';
 
 export interface Candidate{
   id:number;
@@ -38,7 +40,8 @@ function CandidateTable() {
     );
     });
   return (
-  <div>
+  <div className={"App"}>
+      <Header title={"Candidate Table"} />
     <table border={1}>
       <thead>
       <tr>
