@@ -14,7 +14,7 @@
 - Run `docker compose up --build -d`
 
 ### Stop Instructions
-- Run `docker compose down client backend`
+- Run `docker compose down client backend ml`
 
 ### Credits
 
