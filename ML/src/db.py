@@ -28,7 +28,9 @@ def load_candidates(column_names):
     result = cursor.fetchall()
     data = []
     for s in result:
-        line = str(s).strip("(").strip(")").replace(" ", "").replace("'", "").replace("HighSchool", "High School").split(",")
+        line = str(s).strip("(").strip(")").split(",")
+        for i in range(0, len(line)):
+            line[i] = line[i].strip(" '").strip("'")
         candidate = Candidate(line[0], line[1], line[2], line[3], line[4], line[5], line[6])
         data.append(candidate.to_processable())
     cursor.close()
