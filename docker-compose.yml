@@ -25,7 +25,7 @@ services:
       - ./env/ml.env
   maria_db:
     build: db-data
-    restart: no
+    restart: "no"
     env_file:
       - ./env/maria.env
     volumes:
