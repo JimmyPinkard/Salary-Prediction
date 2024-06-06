@@ -1,5 +1,5 @@
-//import {render, screen} from "@testing-library/react";
-//import CandidateTable, {Candidate} from "../components/CandidateTable";
+import {render, screen} from "@testing-library/vue";
+import CandidateTable from "../components/CandidateTable.vue";
 import CandidateMockData from "./mocks/CandidateMockData.json"
 import util from "../util";
 
@@ -11,12 +11,10 @@ util.request = (endpoint:string, method:string, body:any) => {
     });
 };
 
-/*
 test("Test table loads", async () => {
-    render(<CandidateTable />);
+    render(CandidateTable);
 
     const candidateTable = await screen.findAllByRole("cell", {name: /PhD/i})
         .then(res => res[0]);
-    expect(candidateTable).toBeInTheDocument();
+    expect(candidateTable).toBeDefined();
 })
-*/

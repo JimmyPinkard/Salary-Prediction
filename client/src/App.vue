@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import Header from "./components/layout/Header.vue";
-import CandidateTable from "./components/CandidateTable.vue";
+  import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <Header title="Home" />
-  <CandidateTable />
+  <RouterView />
 </template>
 
 <style scoped>
