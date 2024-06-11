@@ -4,6 +4,7 @@ import { ref } from 'vue'
 
 import {request} from "../util.ts";
 import CandidateMockData from "../tests/mocks/CandidateMockData.json"
+import Nav from "./layout/Nav.vue";
 
 let candidates = ref(CandidateMockData.slice(0, 10));
 
@@ -20,6 +21,7 @@ async function updateCandidates() {
 <template>
   <div class="candidate-table">
     <Header title="Candidate Table" />
+    <Nav />
     <button @click="updateCandidates">Update Table</button>
     <table>
       <thead>
