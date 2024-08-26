@@ -1,3 +1,28 @@
+edu_dict = {}
+location_dict = {}
+job_title_dict = {}
+gender_dict = {}
+
+def education_number(key):
+    if key not in edu_dict:
+       edu_dict[key] = len(edu_dict) + 1
+    return edu_dict[key]
+
+def location_number(key):
+    if key not in location_dict:
+        location_dict[key] = len(location_dict) + 1
+    return location_dict[key]
+
+def title_number(key):
+    if key not in job_title_dict:
+        job_title_dict[key] = len(job_title_dict) + 1
+    return job_title_dict[key]
+
+def gender_number(key):
+    if key not in gender_dict:
+        gender_dict[key] = len(gender_dict) + 1
+    return gender_dict[key]
+
 class Candidate:
     def __init__(self, education, experience, location, job_title, age, gender, salary):
         self.education = education
@@ -11,50 +36,14 @@ class Candidate:
     def __str__(self):
         return f'{self.education, self.experience, self.location, self.job_title, self.age, self.gender, self.salary}'
 
-    def education_number(self):
-        match self.education:
-            case "High School":
-                return 1
-            case "Bachelor":
-                return 2
-            case "Master":
-                return 3
-            case "PhD":
-                return 4
-
-    def location_number(self):
-        match self.location:
-            case "Rural":
-                return 1
-            case "Suburban":
-                return 2
-            case "Urban":
-                return 3
-
-    def title_number(self):
-        match self.job_title:
-            case "Analyst":
-                return 1
-            case "Engineer":
-                return 2
-            case "Manager":
-                return 3
-            case "Director":
-                return 4
-
-    def gender_number(self):
-        match self.gender:
-            case "Female": return 1
-            case "Male": return 2
-
     def to_processable(self):
         arr = [None] * 7
-        arr[0] = self.education_number()
+        arr[0] = education_number(self.education)
         arr[1] = self.experience
-        arr[2] = self.location_number()
-        arr[3] = self.title_number()
+        arr[2] = location_number(self.location)
+        arr[3] = title_number(self.job_title)
         arr[4] = self.age
-        arr[5] = self.gender_number()
+        arr[5] = gender_number(self.gender)
         arr[6] = self.salary
         return arr
 
