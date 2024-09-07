@@ -6,7 +6,8 @@ from ai import train
 
 def ui(model):
     candidate = Candidate(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], -1)
-    predicted_salary = round(model.predict([candidate.to_processable()[0:6]])[0], 2)
+    predicted = model.predict([candidate.to_processable()[0:6]])[0][0]
+    predicted_salary = round(predicted[0], 2)
     candidate.salary = predicted_salary
     print(candidate.worth_statement())
 

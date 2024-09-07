@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import { ref } from 'vue'
-
+import Button from "primevue/button";
 import {request} from "../util.ts";
 import CandidateMockData from "../tests/mocks/CandidateMockData.json"
 import Nav from "./layout/Nav.vue";
@@ -22,7 +22,7 @@ async function updateCandidates() {
   <div class="candidate-table">
     <Header title="Candidate Table" />
     <Nav />
-    <button @click="updateCandidates">Update Table</button>
+    <Button @click="updateCandidates">Update Table</Button>
     <table>
       <thead>
       <tr>
