@@ -11,22 +11,13 @@ import java.util.List;
 public interface CandidateRepository extends CrudRepository<Candidate, Long> {
     List<Candidate> findAll();
     @Query("SELECT DISTINCT education from Candidate")
-    List<String> listEducationTypes();
+    String[] listEducationTypes();
     @Query("SELECT DISTINCT location from Candidate")
-    List<String> listLocations();
+    String[] listLocations();
     @Query(value = "SELECT DISTINCT Job_Title from Candidate", nativeQuery = true)
-    List<String> listJobTitles();
+    String[] listJobTitles();
     @Query("SELECT DISTINCT gender from Candidate")
-    List<String> listGenders();
-    /*
-    @Query("SELECT DISTINCT education from Candidate")
-    String[] findDistinctEducation();
-    @Query("SELECT DISTINCT location from Candidate")
-    String[] findDistinctLocation();
-    @Query("SELECT DISTINCT Job_Title from Candidate")
-    String[] findDistinctJobTitle();
-    @Query("SELECT DISTINCT gender from Candidate")
-    String[] findDistinctGender();
-
-     */
+    String[] listGenders();
+    @Query(value = "SELECT * FROM Candidate", nativeQuery = true)
+    Candidate[] withoutOutliers();
 }

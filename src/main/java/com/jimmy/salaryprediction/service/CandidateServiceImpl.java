@@ -39,14 +39,15 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public double predictSalary(CandidateRequest candidateRequest) {
-        return 0;
-        //return candidateRegression.predict(fromCandidateRequest(candidateRequest));
+        return candidateRegression.predict(fromCandidateRequest(candidateRequest).toDoubleArray());
     }
 
     public void trainModel() {
-        List<Candidate> candidates = getAllCandidates();
-        List<CandidateVector> vectors = vectorizeCandidates(candidates);
-        //candidateRegression.train(vectors.toArray(CandidateVector[]::new));
+        Candidate[] candidates = candidateRepository.withoutOutliers();
+        CandidateVector[] vectors = vectorizeCandidates(List.of(candidates)).toArray(CandidateVector[]::new);
+        double[][] candidateMatrix = CandidateVector.toDoubleMatrix(vectors);
+        double[] salaries = CandidateVector.toSalaryOnlyVector(vectors);
+        candidateRegression.train(candidateMatrix, salaries);
     }
 
 
@@ -83,21 +84,21 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     public void loadMaps() {
-        List<String> workingList = candidateRepository.listEducationTypes();
-        for(int i = 0; i < workingList.size(); ++i) {
-            educations.put(workingList.get(i), i + 1);
+        String[] workingList = candidateRepository.listEducationTypes();
+        for(int i = 0; i < workingList.length; ++i) {
+            educations.put(workingList[i], i + 1);
         }
         workingList = candidateRepository.listLocations();
-        for(int i = 0; i < workingList.size(); ++i) {
-           locations.put(workingList.get(i), i + 1);
+        for(int i = 0; i < workingList.length; ++i) {
+            locations.put(workingList[i], i + 1);
         }
         workingList = candidateRepository.listJobTitles();
-        for(int i = 0; i < workingList.size(); ++i) {
-            jobTitles.put(workingList.get(i), i + 1);
+        for(int i = 0; i < workingList.length; ++i) {
+            jobTitles.put(workingList[i], i + 1);
         }
         workingList = candidateRepository.listGenders();
-        for(int i = 0; i < workingList.size(); ++i) {
-            genders.put(workingList.get(i), i + 1);
+        for(int i = 0; i < workingList.length; ++i) {
+            genders.put(workingList[i], i + 1);
         }
     }
 }

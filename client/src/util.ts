@@ -1,6 +1,6 @@
 class Util{
     async request(endpoint:string, method:string, body:any) {
-        return fetch(`https://localhost:8443${endpoint}`, {
+        return fetch(`https://127.0.0.1:8443${endpoint}`, {
             method: `${method}`,
             mode: "cors",
             headers: {

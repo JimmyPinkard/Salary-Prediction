@@ -29,7 +29,7 @@ public class CandidateVector {
     }
 
     public static double[][] toDoubleMatrix(CandidateVector[] candidateVectors) {
-        double[][] matrix = new double[candidateVectors.length][7];
+        double[][] matrix = new double[candidateVectors.length][6];
         for(int i = 0; i < candidateVectors.length; i++) {
             matrix[i] = candidateVectors[i].toDoubleArray();
         }

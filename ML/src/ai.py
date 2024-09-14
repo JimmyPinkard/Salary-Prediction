@@ -1,6 +1,5 @@
 import pandas as pd
 from sklearn.linear_model import LinearRegression
-from sklearn.tree import DecisionTreeRegressor
 
 from db import load_candidates
 
@@ -18,7 +17,6 @@ def train():
     x = content_data.drop(columns=["Salary"])
     y = content_data["Salary"]
 
-    regressor = DecisionTreeRegressor()
     regressor = LinearRegression()
     regressor.fit(x, y)
     return regressor
