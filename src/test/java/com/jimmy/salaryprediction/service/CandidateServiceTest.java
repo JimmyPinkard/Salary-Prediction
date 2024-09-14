@@ -2,18 +2,11 @@ package com.jimmy.salaryprediction.service;
 
 import com.jimmy.salaryprediction.controller.request.CandidateRequest;
 import com.jimmy.salaryprediction.model.CandidateVector;
-import com.jimmy.salaryprediction.repository.CandidateRepository;
-import org.apache.commons.math3.stat.regression.MultipleLinearRegression;
-import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,8 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CandidateServiceTest {
     @Autowired
     private CandidateServiceImpl candidateService;
-    @Autowired
-    private CandidateRepository candidateRepository;
 
     @Test
     public void testGetAllCandidates() {
@@ -33,7 +24,7 @@ public class CandidateServiceTest {
     @Test
     public void testCandidatesVectorization() {
 
-        List<CandidateVector> vectors = candidateService.vectorizeCandidates(candidateService.getAllCandidates());
+        CandidateVector[] vectors = candidateService.vectorizeCandidates(candidateService.getAllCandidates());
         assertNotNull(vectors);
         for(CandidateVector vector : vectors) {
             System.out.println(vector);
@@ -48,19 +39,12 @@ public class CandidateServiceTest {
     }
 
     @Test
-    public void testTransposeProduct() {
-        CandidateVector[] candidateVectors = Arrays.stream(candidateRepository.withoutOutliers())
-                .map(candidate -> candidateService.fromCandidate(candidate))
-                .toArray(CandidateVector[]::new);
-
+    public void testAllPrediction() {
+        CandidateVector[] candidateVectors = candidateService.vectorizeCandidates(candidateService.getAllCandidates());
         double[][] candidateMatrix = CandidateVector.toDoubleMatrix(candidateVectors);
         double[] salaries = CandidateVector.toSalaryOnlyVector(candidateVectors);
         CandidateRegression multipleLinearRegression = new CandidateRegression();
         multipleLinearRegression.train(candidateMatrix, salaries);
-        candidateVectors = candidateService.getAllCandidates()
-                .stream()
-                .map(candidate -> candidateService.fromCandidate(candidate))
-                .toArray(CandidateVector[]::new);
         double averagePercentage = 0;
         int start = 0, end = 1000;
         double lowest = Double.MAX_VALUE;
@@ -76,7 +60,7 @@ public class CandidateServiceTest {
             lowest = Math.min(lowest, percentage);
             highest = Math.max(highest, percentage);
             averagePercentage += percentage;
-            //System.out.printf("%d. Expected %f = Predicted %f = Percentage %f\n", i + 1, vector.getSalary(), prediction, percentage);
+            System.out.printf("%d. Expected %f = Predicted %f = Percentage %f\n", i + 1, vector.getSalary(), prediction, percentage);
         }
         averagePercentage /= end - start;
         System.out.printf("Average Percentage of Accuracy: %f\n", averagePercentage);

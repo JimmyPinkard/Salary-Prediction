@@ -8,6 +8,7 @@ import java.util.List;
 
 @Service
 public interface CandidateService {
-    List<Candidate> getAllCandidates();
+    Candidate[] getAllCandidates();
+    void trainModel();
     double predictSalary(CandidateRequest candidateRequest);
 }

@@ -12,12 +12,12 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/candidates")
-@CrossOrigin(origins = {"http://localhost:3000/", "http://client:3000/", "http://127.0.0.1:3000"})
+@CrossOrigin(origins = {"https://localhost:3000/", "https://client:3000/", "https://127.0.0.1:3000"})
 public class CandidateController {
     private CandidateService candidateService;
 
     @PostMapping("/all")
-    public ResponseEntity<List<Candidate>> listCandidates() {
+    public ResponseEntity<Candidate[]> listCandidates() {
         return ResponseEntity.ok(candidateService.getAllCandidates());
     }
 
