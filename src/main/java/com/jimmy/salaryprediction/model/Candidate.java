@@ -21,5 +21,5 @@ public class Candidate {
     private String jobTitle;
     private int age;
     private String gender;
-    private float salary;
+    private double salary;
 }

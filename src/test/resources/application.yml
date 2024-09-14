@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    url: jdbc:mariadb://localhost:3306/salary_prediction
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#HTTPS
+server:
+  ssl:
+    key-store: ${KEYSTORE}
+    key-store-password: ${KEYSTORE_PASSWORD}
+    key-store-type: ${KEYSTORE_KEY_TYPE}
+    key-alias: ${KEYSTORE_KEY_ALIAS}
+    key-password: ${KEYSTORE_KEY_PASSWORD}
+    enabled: true
