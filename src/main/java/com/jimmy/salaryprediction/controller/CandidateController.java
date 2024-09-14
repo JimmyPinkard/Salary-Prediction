@@ -1,23 +1,29 @@
 package com.jimmy.salaryprediction.controller;
 
+import com.jimmy.salaryprediction.controller.request.CandidateRequest;
 import com.jimmy.salaryprediction.model.Candidate;
 import com.jimmy.salaryprediction.service.CandidateService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin(origins = {"https://localhost:3000", "https://client:3000/"})
+@RequestMapping("/api/candidates")
+@CrossOrigin(origins = {"https://localhost:3000/", "https://client:3000/", "https://127.0.0.1:3000"})
 public class CandidateController {
     private CandidateService candidateService;
 
-    @PostMapping("/api/candidates/all")
-    public ResponseEntity<List<Candidate>> listCandidates() {
+    @PostMapping("/all")
+    public ResponseEntity<Candidate[]> listCandidates() {
         return ResponseEntity.ok(candidateService.getAllCandidates());
+    }
+
+    @PostMapping("/predict-salary")
+    public ResponseEntity<String> predictSalary(@RequestBody CandidateRequest candidateRequest) {
+        double predictedSalary = candidateService.predictSalary(candidateRequest);
+        return ResponseEntity.ok("{predictedSalary: " + predictedSalary + "}");
     }
 }
