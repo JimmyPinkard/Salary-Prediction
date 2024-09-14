@@ -11,43 +11,32 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.Collections;
 import java.util.List;
 
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig implements WebMvcConfigurer {
 
-    /*
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(List.of(
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        // *** URL below needs to match the Vue client URL and port ***
+        config.setAllowedOrigins(List.of(
                 "https://0.0.0.0:3000",
                 "https://127.0.0.1:3000",
                 "https://localhost:3000",
                 "https://client:3000"
         ));
-        corsConfiguration.setAllowedHeaders(List.of("*"));
-        CorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        config.setAllowedMethods(Collections.singletonList("*"));
+        config.setAllowedHeaders(Collections.singletonList("*"));
+        source.registerCorsConfiguration("/**", config);
         return source;
     }
-    */
-
-    /*
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
-                .allowedOrigins("*")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*")
-                .exposedHeaders("Authorization")
-                .allowCredentials(true).maxAge(3600);
-    }
-    */
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception
@@ -55,7 +44,7 @@ public class SecurityConfig implements WebMvcConfigurer {
         return httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .requiresChannel(channel -> channel.anyRequest().requiresSecure())
                 .authorizeHttpRequests(request -> request.anyRequest().permitAll())
-                //.cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigSource))
+                .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
                 .getOrBuild();
     }
 

@@ -1,6 +1,7 @@
 package com.jimmy.salaryprediction.controller;
 
 import com.jimmy.salaryprediction.controller.request.CandidateRequest;
+import com.jimmy.salaryprediction.controller.response.CandidateResponse;
 import com.jimmy.salaryprediction.model.Candidate;
 import com.jimmy.salaryprediction.service.CandidateService;
 import lombok.AllArgsConstructor;
@@ -17,13 +18,13 @@ public class CandidateController {
     private CandidateService candidateService;
 
     @PostMapping("/all")
-    public ResponseEntity<Candidate[]> listCandidates() {
-        return ResponseEntity.ok(candidateService.getAllCandidates());
+    public ResponseEntity<CandidateResponse[]> listCandidates() {
+        return ResponseEntity.ok(candidateService.getAllCandidateResponses());
     }
 
     @PostMapping("/predict-salary")
-    public ResponseEntity<String> predictSalary(@RequestBody CandidateRequest candidateRequest) {
-        double predictedSalary = candidateService.predictSalary(candidateRequest);
-        return ResponseEntity.ok("{predictedSalary: " + predictedSalary + "}");
+    public ResponseEntity<CandidateResponse> predictSalary(@RequestBody CandidateRequest candidateRequest) {
+        CandidateResponse candidateResponse = candidateService.predictSalary(candidateRequest);
+        return ResponseEntity.ok(candidateResponse);
     }
 }

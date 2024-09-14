@@ -1,6 +1,7 @@
 package com.jimmy.salaryprediction.service;
 
 import com.jimmy.salaryprediction.controller.request.CandidateRequest;
+import com.jimmy.salaryprediction.controller.response.CandidateResponse;
 import com.jimmy.salaryprediction.model.Candidate;
 import com.jimmy.salaryprediction.model.CandidateVector;
 import com.jimmy.salaryprediction.repository.CandidateRepository;
@@ -26,7 +27,17 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public double predictSalary(CandidateRequest candidateRequest) {
+    public CandidateResponse[] getAllCandidateResponses() {
+        Candidate[] candidates = getAllCandidates();
+        CandidateResponse[] candidateResponses = new CandidateResponse[candidates.length];
+        for (int i = 0; i < candidates.length; i++) {
+            candidateResponses[i] = new CandidateResponse(candidates[i]);
+        }
+         return candidateResponses;
+    }
+
+    @Override
+    public CandidateResponse predictSalary(CandidateRequest candidateRequest) {
         CandidateVector candidateVector = new CandidateVector(candidateRequest);
         double[] vec = candidateVector.toDoubleArray();
         double result = 0;
@@ -34,7 +45,8 @@ public class CandidateServiceImpl implements CandidateService {
             result += params[i + 1] * vec[i];
         }
         result += params[0];
-        return result;
+        CandidateResponse candidateResponse = new CandidateResponse(candidateRequest, result);
+        return candidateResponse;
     }
 
     @Override
