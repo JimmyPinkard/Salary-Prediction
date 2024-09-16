@@ -1,9 +1,14 @@
 body {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
     background-color: black;
     color: lightgray;
 }
 
-div {
+.header {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -22,12 +27,7 @@ div {
 }
 
 #salary-prediction-div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
-    color: green;
+    color: lightgreen;
 }
 
 input {
@@ -40,4 +40,51 @@ select {
     padding: 1em;
     margin: 1em;
     border: 1em;
+}
+
+button {
+    padding: 1em;
+    margin: 1em;
+    border: 1em;
+    color: black;
+    background-color: orange;
+}
+
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.bar-links {
+}
+
+.bar-link {
+    color: lightgray;
+}
+
+.bar-link:hover {
+    color: green;
+}
+
+.bar-link:visited {
+    color: lightgray;
+}
+
+.visualisations {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+.visualisation-image {
+    padding: 1em;
+    margin: 1em;
+    border: 1em;
+    min-width: 10%;
+    max-width: 90%;
+    height: auto;
 }
