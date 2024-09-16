@@ -4,22 +4,4 @@ services:
     build: .
     restart: always
     ports:
-      - "8443:8443"
-    env_file:
-      - ./env/backend.env
-    depends_on:
-      maria_db:
-        condition: service_healthy
-  maria_db:
-    build: db-data
-    restart: "no"
-    env_file:
-      - ./env/maria.env
-    volumes:
-      - ./data-volume:/var/lib/mysql/salary_prediction
-      - ./db-data/Candidate.csv:/var/lib/mysql/salary_prediction/Candidate.csv
-    ports:
-      - "3306:3306"
-    healthcheck:
-      test: ["CMD", "echo", "Hello"]
-      retries: 1
+      - "80:8080"

@@ -1,25 +1,26 @@
 package com.jimmy.salaryprediction.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.opencsv.bean.CsvBindByName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class Candidate {
-    @Id
-    private Long id;
+    @CsvBindByName
     private String education;
+    @CsvBindByName
     private int experience;
+    @CsvBindByName
     private String location;
-    @Column(name = "Job_Title")
+    @CsvBindByName(column = "Job_Title")
     private String jobTitle;
+    @CsvBindByName
     private int age;
+    @CsvBindByName
     private String gender;
+    @CsvBindByName
     private double salary;
 }

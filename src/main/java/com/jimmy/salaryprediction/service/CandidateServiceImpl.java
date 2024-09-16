@@ -4,27 +4,39 @@ import com.jimmy.salaryprediction.controller.request.CandidateRequest;
 import com.jimmy.salaryprediction.controller.response.CandidateResponse;
 import com.jimmy.salaryprediction.model.Candidate;
 import com.jimmy.salaryprediction.model.CandidateVector;
-import com.jimmy.salaryprediction.repository.CandidateRepository;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
 import org.apache.commons.math3.util.Precision;
 import org.springframework.stereotype.Service;
 
+import java.io.FileReader;
+import java.io.Reader;
+import java.nio.file.Paths;
+
 @Service
 public class CandidateServiceImpl implements CandidateService {
-    private final CandidateRepository candidateRepository;
     private final OLSMultipleLinearRegression multipleLinearRegression;
     private double[] params;
 
 
-    public CandidateServiceImpl(CandidateRepository candidateRepository) {
-        this.candidateRepository = candidateRepository;
+    public CandidateServiceImpl() {
         this.multipleLinearRegression = new OLSMultipleLinearRegression();
         trainModel();
     }
 
     @Override
     public Candidate[] getAllCandidates() {
-        return candidateRepository.findAll().toArray(Candidate[]::new);
+        try (Reader reader = new FileReader(String.valueOf(Paths.get(ClassLoader.getSystemResource("Candidate.csv").toURI())))) {
+            CsvToBean<Candidate> csvToBean  = new CsvToBeanBuilder<Candidate>(reader)
+                    .withType(Candidate.class)
+                    .build();
+            return csvToBean.parse().toArray(Candidate[]::new);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -46,8 +58,7 @@ public class CandidateServiceImpl implements CandidateService {
             result += params[i + 1] * vec[i];
         }
         result = Precision.round(result + params[0], 2);
-        CandidateResponse candidateResponse = new CandidateResponse(candidateRequest, result);
-        return candidateResponse;
+        return new CandidateResponse(candidateRequest, result);
     }
 
     @Override
@@ -67,6 +78,4 @@ public class CandidateServiceImpl implements CandidateService {
         }
         return vectors;
     }
-
-
 }

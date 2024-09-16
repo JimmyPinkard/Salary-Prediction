@@ -9,7 +9,7 @@ const formJson = {
 }
 
 async function request(endpoint, method, body) {
-    return fetch(`https://127.0.0.1:8443${endpoint}`, {
+    return fetch(endpoint, {
         headers: {
             "Content-Type": "application/json"
         },
