@@ -12,19 +12,3 @@ CREATE TABLE IF NOT EXISTS Candidate (
     Gender VARCHAR(15),
     Salary FLOAT
 );
-GO
-CREATE TABLE IF NOT EXISTS Users (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255),
-    password VARCHAR(255)
-);
-GO
-CREATE TABLE IF NOT EXISTS Roles (
-                                     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                                     name VARCHAR(255)
-);
-GO
-CREATE TABLE IF NOT EXISTS Privileges (
-                                     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                                     name VARCHAR(255)
-);

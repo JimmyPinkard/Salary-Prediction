@@ -1,13 +1,5 @@
 version: "3.8"
 services:
-  client:
-    build: ./client/
-    restart: always
-    volumes:
-      - "./client/:/client/"
-      - /client/node_modules/
-    ports:
-      - "3000:3000"
   backend:
     build: .
     restart: always
