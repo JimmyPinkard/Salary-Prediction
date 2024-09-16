@@ -6,6 +6,7 @@ import com.jimmy.salaryprediction.model.Candidate;
 import com.jimmy.salaryprediction.model.CandidateVector;
 import com.jimmy.salaryprediction.repository.CandidateRepository;
 import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
+import org.apache.commons.math3.util.Precision;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -44,7 +45,7 @@ public class CandidateServiceImpl implements CandidateService {
         for(int i = 0; i < params.length - 1; i++) {
             result += params[i + 1] * vec[i];
         }
-        result += params[0];
+        result = Precision.round(result + params[0], 2);
         CandidateResponse candidateResponse = new CandidateResponse(candidateRequest, result);
         return candidateResponse;
     }

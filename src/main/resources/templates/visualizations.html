@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Jimmy D Pinkard III">
+    <meta name="description" content="Salary Prediction web app for Jimmy Pinkard's Capstone">
+    <title>Salary Prediction Visualizations</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" type="text/css">
+</head>
+<body>
+  <div class="header">
+      <h1>Salary Prediction</h1>
+      <h2>Visualizations</h2>
+  </div>
+  <div class="navbar">
+      <ul class="bar-links">
+          <li><a class="bar-link" href="index.html" th:href="@{/}">Home</a></li>
+          <li><a class="bar-link" href="visualizations.html" th:href="@{/visualizations}">Visualizations</a></li>
+      </ul>
+  </div>
+  <div class="visualisations">
+      <img src="../static/img/exp-salary.png" th:src="@{/img/exp-salary.png}" alt="Experience To Salary Box Chart" class="visualisation-image"/>
+      <img src="../static/img/edu-salary.png" th:src="@{/img/edu-salary.png}" alt="Education To Salary Box Chart" class="visualisation-image"/>
+      <img src="../static/img/location-salary.png" th:src="@{/img/location-salary.png}" alt="Location To Salary Box Chart" class="visualisation-image"/>
+  </div>
+</body>
+</html>

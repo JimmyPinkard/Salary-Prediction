@@ -10,4 +10,8 @@ public class ViewController {
         return "index.html";
     }
 
+    @GetMapping("/visualizations")
+    public String visualizations() {
+        return "visualizations.html";
+    }
 }
