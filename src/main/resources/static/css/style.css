@@ -1,0 +1,43 @@
+body {
+    background-color: black;
+    color: lightgray;
+}
+
+div {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    color: black;
+    background-color: lightgray;
+}
+
+#salary-prediction-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    color: green;
+}
+
+input {
+    padding: 1em;
+    margin: 1em;
+    border: 1em;
+}
+
+select {
+    padding: 1em;
+    margin: 1em;
+    border: 1em;
+}

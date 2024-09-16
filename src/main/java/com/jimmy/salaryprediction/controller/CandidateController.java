@@ -2,7 +2,6 @@ package com.jimmy.salaryprediction.controller;
 
 import com.jimmy.salaryprediction.controller.request.CandidateRequest;
 import com.jimmy.salaryprediction.controller.response.CandidateResponse;
-import com.jimmy.salaryprediction.model.Candidate;
 import com.jimmy.salaryprediction.service.CandidateService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
