@@ -16,12 +16,9 @@ import java.nio.file.Paths;
 
 @Service
 public class CandidateServiceImpl implements CandidateService {
-    private final OLSMultipleLinearRegression multipleLinearRegression;
     private double[] params;
 
-
     public CandidateServiceImpl() {
-        this.multipleLinearRegression = new OLSMultipleLinearRegression();
         trainModel();
     }
 
@@ -63,6 +60,7 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public void trainModel() {
+        OLSMultipleLinearRegression multipleLinearRegression = new OLSMultipleLinearRegression();
         Candidate[] candidates = getAllCandidates();
         CandidateVector[] vectors = vectorizeCandidates(candidates);
         double[][] candidateMatrix = CandidateVector.toDoubleMatrix(vectors);

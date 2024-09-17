@@ -16,11 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class CandidateController {
     private CandidateService candidateService;
 
-    @PostMapping("/all")
-    public ResponseEntity<CandidateResponse[]> listCandidates() {
-        return ResponseEntity.ok(candidateService.getAllCandidateResponses());
-    }
-
     @PostMapping("/predict-salary")
     public ResponseEntity<CandidateResponse> predictSalary(@RequestBody CandidateRequest candidateRequest) {
         CandidateResponse candidateResponse = candidateService.predictSalary(candidateRequest);

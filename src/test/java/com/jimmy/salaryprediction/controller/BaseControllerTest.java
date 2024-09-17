@@ -19,8 +19,7 @@ public abstract class BaseControllerTest {
     @BeforeEach
     protected void setUp() throws Exception {
         this.restTemplate = new RestTemplate();
-        this.url = "https://127.0.0.1:" + port;
-        //this.url = "https://localhost:" + port;
+        this.url = "http://127.0.0.1:" + port;
     }
 
     protected <Request, Response> ResponseEntity<Response> makePostRequest(String endpoint, Request body, Class<Response> responseClass) {
