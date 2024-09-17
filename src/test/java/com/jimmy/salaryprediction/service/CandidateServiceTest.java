@@ -3,7 +3,6 @@ package com.jimmy.salaryprediction.service;
 import com.jimmy.salaryprediction.controller.request.CandidateRequest;
 import com.jimmy.salaryprediction.controller.response.CandidateResponse;
 import com.jimmy.salaryprediction.model.Candidate;
-import com.jimmy.salaryprediction.model.CandidateVector;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,21 +15,11 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 public class CandidateServiceTest {
     @Autowired
-    private CandidateServiceImpl candidateService;
+    private CandidateService candidateService;
 
     @Test
     public void testGetAllCandidates() {
         assertNotNull(candidateService.getAllCandidates());
-    }
-
-    @Test
-    public void testCandidatesVectorization() {
-
-        CandidateVector[] vectors = candidateService.vectorizeCandidates(candidateService.getAllCandidates());
-        assertNotNull(vectors);
-        for(CandidateVector vector : vectors) {
-            System.out.println(vector);
-        }
     }
 
     @Test
@@ -48,7 +37,6 @@ public class CandidateServiceTest {
     @Test
     public void testAllPrediction() {
         Candidate[] candidates = candidateService.getAllCandidates();
-        CandidateVector[] candidateVectors = candidateService.vectorizeCandidates(candidates);
         CandidateRequest[] candidateRequests = new CandidateRequest[candidates.length];
         for (int i = 0; i < candidates.length; i++) {
             Candidate candidate = candidates[i];
@@ -61,7 +49,7 @@ public class CandidateServiceTest {
         double highest = Double.MIN_VALUE;
         int tenPercent = 0;
         for(int i = start; i < end; i++) {
-            CandidateVector vector = candidateVectors[i];
+            Candidate vector = candidates[i];
             CandidateResponse pred = candidateService.predictSalary(candidateRequests[i]);
             double prediction = pred.getSalary();
             double percentage = 100 * (prediction / vector.getSalary());

@@ -10,7 +10,6 @@ import java.util.List;
 @Service
 public interface CandidateService {
     Candidate[] getAllCandidates();
-    CandidateResponse[] getAllCandidateResponses();
     void trainModel();
     CandidateResponse predictSalary(CandidateRequest candidateRequest);
 }

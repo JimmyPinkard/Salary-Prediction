@@ -3,7 +3,6 @@ package com.jimmy.salaryprediction.service;
 import com.jimmy.salaryprediction.controller.request.CandidateRequest;
 import com.jimmy.salaryprediction.controller.response.CandidateResponse;
 import com.jimmy.salaryprediction.model.Candidate;
-import com.jimmy.salaryprediction.model.CandidateVector;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
 import java.io.Reader;
-import java.nio.file.Paths;
 
 @Service
 public class CandidateServiceImpl implements CandidateService {
@@ -24,7 +22,8 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public Candidate[] getAllCandidates() {
-        try (Reader reader = new FileReader(String.valueOf(Paths.get(ClassLoader.getSystemResource("Candidate.csv").toURI())))) {
+        String path = System.getenv().get("CSV_FILE");
+        try (Reader reader = new FileReader(path)) {
             CsvToBean<Candidate> csvToBean  = new CsvToBeanBuilder<Candidate>(reader)
                     .withType(Candidate.class)
                     .build();
@@ -37,18 +36,8 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public CandidateResponse[] getAllCandidateResponses() {
-        Candidate[] candidates = getAllCandidates();
-        CandidateResponse[] candidateResponses = new CandidateResponse[candidates.length];
-        for (int i = 0; i < candidates.length; i++) {
-            candidateResponses[i] = new CandidateResponse(candidates[i]);
-        }
-         return candidateResponses;
-    }
-
-    @Override
     public CandidateResponse predictSalary(CandidateRequest candidateRequest) {
-        CandidateVector candidateVector = new CandidateVector(candidateRequest);
+        Candidate candidateVector = new Candidate(candidateRequest);
         double[] vec = candidateVector.toDoubleArray();
         double result = 0;
         for(int i = 0; i < params.length - 1; i++) {
@@ -61,19 +50,10 @@ public class CandidateServiceImpl implements CandidateService {
     @Override
     public void trainModel() {
         OLSMultipleLinearRegression multipleLinearRegression = new OLSMultipleLinearRegression();
-        Candidate[] candidates = getAllCandidates();
-        CandidateVector[] vectors = vectorizeCandidates(candidates);
-        double[][] candidateMatrix = CandidateVector.toDoubleMatrix(vectors);
-        double[] salaries = CandidateVector.toSalaryOnlyVector(vectors);
+        Candidate[] vectors = getAllCandidates();
+        double[][] candidateMatrix = Candidate.toDoubleMatrix(vectors);
+        double[] salaries = Candidate.toSalaryOnlyVector(vectors);
         multipleLinearRegression.newSampleData(salaries, candidateMatrix);
         this.params = multipleLinearRegression.estimateRegressionParameters();
-    }
-
-    public CandidateVector[] vectorizeCandidates(Candidate[] candidates) {
-        CandidateVector[] vectors = new CandidateVector[candidates.length];
-        for (int i = 0; i < candidates.length; i++) {
-            vectors[i] = new CandidateVector(candidates[i]);
-        }
-        return vectors;
     }
 }

@@ -1,2 +1,0 @@
-#!/bin/sh
-mariadb-import --columns=Education,Experience,Location,Job_Title,Age,Gender,Salary --ignore-lines=1 --fields-terminated-by=, --local -u "${MYSQL_USER}" --password="${MYSQL_PASSWORD}" salary_prediction /var/lib/mysql/salary_prediction/Candidate.csv
