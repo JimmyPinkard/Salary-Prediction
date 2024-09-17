@@ -1,4 +1,4 @@
-FROM openjdk:17
+FROM openjdk:21
 WORKDIR "/home/app"
 COPY . .
 COPY src/main/resources/Candidate.csv /home/app/Candidate.csv
