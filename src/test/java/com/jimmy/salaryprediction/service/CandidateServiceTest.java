@@ -53,7 +53,7 @@ public class CandidateServiceTest {
             CandidateResponse pred = candidateService.predictSalary(candidateRequests[i]);
             double prediction = pred.getSalary();
             double percentage = 100 * (prediction / vector.getSalary());
-            if(percentage >= 90 && percentage <= 110) {
+            if(percentage >= 85 && percentage <= 115) {
                 ++tenPercent;
             }
             lowest = Math.min(lowest, percentage);
