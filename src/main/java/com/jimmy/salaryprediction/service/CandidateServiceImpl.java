@@ -1,6 +1,7 @@
 package com.jimmy.salaryprediction.service;
 
 import com.jimmy.salaryprediction.controller.request.CandidateRequest;
+import com.jimmy.salaryprediction.controller.response.CandidateModelResponse;
 import com.jimmy.salaryprediction.controller.response.CandidateResponse;
 import com.jimmy.salaryprediction.model.Candidate;
 import com.opencsv.bean.CsvToBean;
@@ -33,6 +34,11 @@ public class CandidateServiceImpl implements CandidateService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public CandidateModelResponse getModel() {
+        return new CandidateModelResponse(params);
     }
 
     @Override

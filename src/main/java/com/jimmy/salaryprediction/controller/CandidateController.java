@@ -1,6 +1,7 @@
 package com.jimmy.salaryprediction.controller;
 
 import com.jimmy.salaryprediction.controller.request.CandidateRequest;
+import com.jimmy.salaryprediction.controller.response.CandidateModelResponse;
 import com.jimmy.salaryprediction.controller.response.CandidateResponse;
 import com.jimmy.salaryprediction.service.CandidateService;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/candidates")
 public class CandidateController {
     private CandidateService candidateService;
+
+    @PostMapping("/model")
+    public ResponseEntity<CandidateModelResponse> getModel() {
+        return ResponseEntity.ok(candidateService.getModel());
+    }
 
     @PostMapping("/predict-salary")
     public ResponseEntity<CandidateResponse> predictSalary(@RequestBody CandidateRequest candidateRequest) {

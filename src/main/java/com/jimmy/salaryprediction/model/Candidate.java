@@ -58,10 +58,10 @@ public class Candidate {
         return vector;
     }
 
-    private static final Map<String, Integer> genders = new HashMap<>(4);
-    private static final Map<String, Integer> locations = new HashMap<>(3);
-    private static final Map<String, Integer> educations = new HashMap<>(4);
-    private static final Map<String, Integer> jobTitles = new HashMap<>(4);
+    public static final Map<String, Integer> genders = new HashMap<>(4);
+    public static final Map<String, Integer> locations = new HashMap<>(3);
+    public static final Map<String, Integer> educations = new HashMap<>(4);
+    public static final Map<String, Integer> jobTitles = new HashMap<>(4);
 
     static {
         loadMaps();
